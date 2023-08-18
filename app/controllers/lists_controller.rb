@@ -2,10 +2,11 @@ class ListsController < ApplicationController
   before_action :show_list, only: [:show, :edit, :update, :destroy]
 
   def index
-    @list = List.all
+    @lists = List.all
   end
 
   def show
+    @bookmark = Bookmark.new
   end
 
   def new
@@ -13,8 +14,8 @@ class ListsController < ApplicationController
   end
 
   def create
-    @list = Restaurant.new(list_params)
-    if @restaurant.save
+    @list = List.new(list_params)
+    if @list.save
       redirect_to list_path(@restaurant), notice: "List was successfully created."
     else
       render :new, status: :unprocessable_entity
@@ -24,7 +25,7 @@ class ListsController < ApplicationController
   private
 
   def show_list
-    @show = List.find(params[:id])
+    @list = List.find(params[:id])
   end
 
 end
